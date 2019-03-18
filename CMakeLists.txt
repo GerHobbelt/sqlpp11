@@ -24,6 +24,14 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+
+#Hunter
+include(cmake/Hunter/HunterGate.cmake)
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.23.133.tar.gz"
+    SHA1 "8aeb0238dfb3aded7632dc9505f11a48d7b3ac0d"
+)
+
 project(sqlpp11 VERSION 0.1 LANGUAGES CXX)
 
 enable_testing()
@@ -31,11 +39,12 @@ enable_testing()
 option(ENABLE_TESTS "Build unit tests" On)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/")
-find_package(HinnantDate REQUIRED)
+hunter_add_package(date)
+find_package(date CONFIG REQUIRED)
 
 add_library(sqlpp11 INTERFACE)
 
-target_link_libraries(sqlpp11 INTERFACE HinnantDate::Date)
+target_link_libraries(sqlpp11 INTERFACE date_interface)
 
 target_include_directories(sqlpp11 INTERFACE
   $<BUILD_INTERFACE:${sqlpp11_SOURCE_DIR}/include>
@@ -106,7 +115,6 @@ install(
   FILES
     "cmake/Sqlpp11Config.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/cmake/Sqlpp11ConfigVersion.cmake"
-    "cmake/Modules/FindHinnantDate.cmake"
   DESTINATION
     ${ConfigPackageLocation}
 )
