@@ -28,8 +28,8 @@ cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 #Hunter
 include(cmake/Hunter/HunterGate.cmake)
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.23.133.tar.gz"
-    SHA1 "8aeb0238dfb3aded7632dc9505f11a48d7b3ac0d"
+    URL "https://github.com/cpp-pm/hunter/archive/v0.23.289.tar.gz"
+    SHA1 "7d7323704780200a1575fc089d26f8a8a393a1fa"
 )
 
 project(sqlpp11 VERSION 0.1 LANGUAGES CXX)
@@ -44,7 +44,7 @@ find_package(date CONFIG REQUIRED)
 
 add_library(sqlpp11 INTERFACE)
 
-target_link_libraries(sqlpp11 INTERFACE date_interface)
+target_link_libraries(sqlpp11 INTERFACE date::date)
 
 target_include_directories(sqlpp11 INTERFACE
   $<BUILD_INTERFACE:${sqlpp11_SOURCE_DIR}/include>
